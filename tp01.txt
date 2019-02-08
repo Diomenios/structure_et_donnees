@@ -1,0 +1,23 @@
+// select vendNom+ ' ' + vendPrenom as concat from dba.tbVendeurs order by vendSexe asc, vendNom ASC , vendPrenom ASC  
+
+//select prodId, prodLib, convert(varchar(20), prodPrix)  + ' €'  as bonjour, categId from dba.tbProduits order by prodPrix desc 
+
+/*
+select categId, categLib, case 
+                                when categTaxe is not null 
+                                    then categTaxe * 100 || ' %' 
+                                    else '' 
+                          end as categTaxe 
+from dba.tbCategories order by categTaxe desc
+*/
+
+// SELECT prodId, prodLib, convert(decimal(20,2), prodPrix + prodPrix*15/100) as raccourcis, categId from dba.tbProduits 
+
+// select * from dba.tbObjectifs order by moisId asc, vendId ASC 
+
+// select * from dba.tbObjectifs order by objChiffre desc, moisId ASC , vendId asc
+
+// select * from dba.tbCommandes order by vendId asc, moisId asc 
+
+// select * from dba.tbVentes order by prodId asc, commId asc, prodQuant desc
+
