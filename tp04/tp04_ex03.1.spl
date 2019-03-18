@@ -1,0 +1,113 @@
+-------------------------------------------------------------
+-- create table
+-------------------------------------------------------------
+
+---------------------  exercice 1 ---------------------------
+
+CREATE TABLE pays(
+    code char(10)  NOT NULL,
+    pays char(30) NOT NULL,
+    CONSTRAINT pk__pays PRIMARY KEY (code)
+);
+
+CREATE TABLE compagnies(
+    "id"  integer not null default autoincrement,
+    nom char(20) NOT NULL, 
+    slogan char(50),
+    pays char(10) NOT NULL,
+    CONSTRAINT pk__compagnies PRIMARY KEY ("id"),
+    CONSTRAINT fk__compagnies__pays FOREIGN KEY (pays) REFERENCE pays (code) ON UPDATE RESTRICT ON DELETE RESTRICT 
+);
+
+---------------------  exercice 2 ---------------------------
+
+DROP TABLE pays ;
+
+DROP TABLE compagnies ;
+
+---------------------  exercice 3 ---------------------------
+
+DROP TABLE compagnies ;
+
+CREATE TABLE compagnies (
+	"id" INTEGER NOT NULL DEFAULT AUTOINCREMENT,
+	nom char(20) NOT NULL, 
+	slogan CHAR(50),
+	pays char(10) NOT NULL,
+	bénéfices INTEGER DEFAULT 0,
+	CONSTRAINT pk__compagnies PRIMARY KEY ("id"),
+	CONSTRAINT fk__compagnies__pays FOREIGN KEY (pays) REFERENCE pays (code) ON UPDATE RESTRICT ON DELETE RESTRICT
+);
+
+----- ou ------
+
+ALTER TABLE compagnies
+
+ADD bénéfices INTEGER DEFAULT 0 ;
+
+---------------------  exercice 4 ---------------------------
+
+INSERT INTO pays
+VALUES ('BE', 'Belgique'),
+       ('FR', 'France');
+	   
+INSERT INTO compagnies (nom, slogan, pays)
+VALUES 	('foocebak', 'Offrez vous !', 'BE'),
+		('geeglo', 'Ne soyez pas malin', 'BE'),
+		('omozan', null, 'FR');
+		
+---------------------  exercice 5 ---------------------------
+
+UPDATE compagnies
+SET slogan = 'c''est déjà chez vous'
+WHERE nom = 'omozan';
+
+---------------------  exercice 6 ---------------------------
+
+DELETE FROM compagnies WHERE pays = 'FR';
+
+---------------------  exercice 7 ---------------------------
+
+DELETE FROM compagnies;
+
+---------------------  exercice 8 ---------------------------
+
+SELECT nom, pays.pays FROM compagnies JOIN pays ;
+
+---------------------  exercice 9 ---------------------------
+
+UPDATE TABLE pays 
+SET pays = 'belgie'
+WHERE pays = 'belgique';
+
+---------------------  exercice 10 ---------------------------
+
+INSERT INTO pays 
+VALUES ('BL', 'belgie');
+
+UPDATE  compagnies
+SET pays = 'BL'
+WHERE pays = 'BE';
+
+DELETE FROM pays WHERE code = 'BE';
+
+----- ou ------
+
+------------------
+--- à vérifier ---  
+------------------
+
+ALTER TABLE compagnies
+DROP CONSTRAINT fk__compagnies__pays;
+
+ALTER TABLE compagnies
+ADD CONSTRAINT fk__compagnies__pays FOREIGN KEY (pays) REFERENCE pays (code) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+UPDATE pays
+SET pays = 'BL'
+WHERE pays = 'BR';
+
+
+
+
+

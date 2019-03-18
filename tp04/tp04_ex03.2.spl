@@ -1,0 +1,57 @@
+-------------------------------------------------------------
+-- create table
+-------------------------------------------------------------
+
+CREATE TABLE films (
+	"id" INTEGER NOT NULL DEFAULT AUTOINCREMENT,
+	titre char(50) NOT NULL,
+	annee INTEGER NOT NULL,
+	CONSTRAINT pk__films PRIMARY KEY ("id")
+);
+
+CREATE TABLE acteurs(
+	"id" INTEGER NOT NULL DEFAULT AUTOINCREMENT,
+	nom char(50) NOT NULL, 
+	prenom char(50) NOT NULL,
+	CONSTRAINT pk__acteurs PRIMARY KEY ("id")
+);
+
+CREATE TABLE films_acteurs(
+	film INTEGER NOT NULL,
+	acteur INTEGER NOT NULL,
+	CONSTRAINT pk__films_acteurs PRIMARY KEY (film, acteur),
+	CONSTRAINT fk__films_acteurs__films FOREIGN KEY (film) REFERENCE films("id") ON UPDATE RESTRICT ON DELETE RESTRICT,
+	CONSTRAINT fk__films_acteurs__acteurs FOREIGN KEY (acteur) REFERENCE acteurs("id") ON UPDATE RESTRICT ON DELETE RESTRICT
+);
+
+-------------------------------------------------------------
+-- insert of data
+-------------------------------------------------------------
+
+INSERT INTO films (titre, annee)
+VALUES  ('Captain Info', 1989), 
+		('Captain Info Returns', 1995);
+		
+INSERT INTO acteurs (prenom, nom)
+VALUES  ('Virgy', 'Vandyn'), ('Yv', 'Delvynes'), ('Mary', 'No'), ('Dim', 'Ram');
+
+INSERT INTO films_acteurs
+VALUES  (1, 1),
+		(1, 2),
+		(1, 3),
+		(2, 3),
+		(2, 4);
+		
+-------------------------------------------------------------
+-- Selection of data
+-------------------------------------------------------------
+
+SELECT (acteurs.nom + ' '+ acteurs.prenom) as acteur, films.titre as titre 
+FROM films_acteurs JOIN acteurs, films ORDER BY acteurs.nom ASC, films.titre ASC;
+
+-------------------------------------------------------------
+-- Modify table
+-------------------------------------------------------------
+
+
+	
